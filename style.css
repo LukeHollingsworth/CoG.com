@@ -48,6 +48,11 @@ h1 {
     font-size: 5em;
 }
 
+h2 {
+    font-family: 'HeadFont';
+    font-size: 3em;
+}
+
 ul {
     list-style-type: disc;
     padding-left: 40px;
