@@ -1,14 +1,15 @@
 body, html {
-     margin-top: 1%;
- 	margin-bottom: 1%;
- 	margin-left: 12%;
- 	margin-right: 12%;
-    padding: 0;
-    height: 100%;
-    background-color: black;
-    color: white;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding: 0;
+  height: 100%;
+  background-color: black;
+  color: white;
   }
-  
+  .margin {
+    margin-left: 12%;
+    margin-right: 12%;
+  }
   
   .centerContent {
     display: flex;
@@ -95,3 +96,77 @@ nav a:visited {
     color: white;
 }
   
+/* Calendar styles */
+#calendar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.month {
+  width: 240px;
+  border: 1px solid white;
+  margin: 5px;
+  text-align: center;
+}
+
+.month h3 {
+  background-color: gray;
+  margin: 0;
+  padding: 10px;
+  color: white;
+}
+
+.day {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  border: 1px solid white;
+}
+
+.day.special {
+  background-color: #0051ff7a; /* Change to your preferred color */
+}
+
+.day.special:hover::after {
+  content: attr(data-event);
+  position: absolute;
+  background-color: white;
+  color: black;
+  padding: 5px;
+  border: 1px solid black;
+  z-index: 1;
+}
+
+.day.today {
+  background-color: #00cc0059; /* Change to your preferred color */
+}
+
+.daysContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.day-of-week-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.day-of-week {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  border: 1px solid white;
+  background-color: gray;
+}
+
+.day.today {
+  background-color: rgba(0, 128, 0, 0.493);  /* Change to your preferred shade of green */
+}
