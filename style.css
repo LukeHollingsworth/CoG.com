@@ -6,9 +6,15 @@ body, html {
   background-color: black;
   color: white;
   }
+
   .margin {
     margin-left: 12%;
     margin-right: 12%;
+  }
+
+  .margin .nav-container {
+    margin-left: 0;
+    margin-right: 0;
   }
   
   .centerContent {
@@ -67,6 +73,11 @@ ul {
   
 
 /* Navigation styles */
+body, nav {
+  margin-left: 0;
+  padding-left: 0;
+}
+
 nav {
     position: fixed;
     top: 0;
@@ -95,6 +106,21 @@ nav a {
 nav a:visited {
     color: white;
 }
+
+.nav-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  width: 50px;
+  height: 50px;
+  margin-right: auto; /* pushes the rest of the content to the far right */
+}
+
   
 /* Calendar styles */
 #calendar {
