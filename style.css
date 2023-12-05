@@ -133,8 +133,9 @@ nav a:visited {
 .month {
   width: 240px;
   border: 1px solid white;
-  margin: 5px;
-  text-align: center;
+  padding: 20px;
+  margin: 10px;
+  text-align: left;
 }
 
 .month h3 {
@@ -144,7 +145,7 @@ nav a:visited {
   color: white;
 }
 
-.day {
+.day, .day-of-week {
   width: 30px;
   height: 30px;
   display: inline-block;
@@ -172,27 +173,31 @@ nav a:visited {
 }
 
 .daysContainer {
-  display: flex;
-  flex-direction: column;
+  display: inline-block;
+  flex-direction: row; /* This should be row, not column */
+  flex-wrap: wrap; /* Ensure that the elements wrap after reaching the end of the container */
   align-items: center;
 }
 
 .day-of-week-container {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.day-of-week {
-  width: 30px;
-  height: 30px;
   display: inline-block;
-  text-align: center;
-  vertical-align: top;
-  border: 1px solid white;
+  justify-content: center;
+  width: 100%;
   background-color: gray;
 }
 
 .day.today {
   background-color: rgba(0, 128, 0, 0.698);  /* Change to your preferred shade of green */
+}
+
+/* Map styles */
+#contextMenu ul, #pinForm form {
+  background-color: black;
+  border: 1px solid #ccc;
+  padding: 10px;
+  list-style-type: none;
+}
+
+#contextMenu ul li, #pinForm form input, #pinForm form textarea {
+  margin-bottom: 10px;
 }

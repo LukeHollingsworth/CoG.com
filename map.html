@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Map</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Set the size of the map */
+        #map {
+            height: 550px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Map</h1>
+    <div id="map"></div>
+    <div id="contextMenu" style="display: none; position: absolute; z-index: 5;">
+        <ul>
+            <li id="addPin">Submit New Pin</li>
+        </ul>
+    </div>
+    
+    <div id="pinForm" style="display: none; position: absolute; z-index: 5;">
+        <form id="submitPinForm">
+            Name: <input type="text" id="pinName"><br>
+            Description: <input type="text" id="pinDescription"><br>
+            Picture: <input type="file" id="pinPicture"><br>
+            <input type="submit" value="Submit Pin">
+        </form>
+    </div>
+    
+
+    <script>
+        let map;
+        let clickedLatLng;
+
+        function initMap() {
+            var grayscaleStyle = [
+                {
+                    "featureType": "all",
+                    "stylers": [
+                        { "saturation": -100 },
+                        { "lightness": 50 }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "geometry",
+                    "stylers": [
+                        { "lightness": 100 },
+                        { "visibility": "simplified" }
+                    ]
+                }
+            ];
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: {lat: 51.54553931607378, lng: -0.19432621840440362},
+                styles: grayscaleStyle
+            });
+
+            map.addListener('rightclick', function(e) {
+                clickedLatLng = e.latLng;
+                clickedPixel = e.pixel; // Store the clicked pixel
+                showContextMenu(clickedPixel);
+            });
+        }
+
+        function showContextMenu(pixel) {
+            const contextMenu = document.getElementById('contextMenu');
+            contextMenu.style.display = 'block';
+            contextMenu.style.left = pixel.x + 'px';
+            contextMenu.style.top = pixel.y + 'px';
+        }
+
+        document.getElementById('addPin').addEventListener('click', function() {
+            document.getElementById('contextMenu').style.display = 'none';
+            const form = document.getElementById('pinForm');
+            form.style.display = 'block';
+            form.style.left = clickedPixel.x + 'px'; // Use the stored clicked pixel
+            form.style.top = clickedPixel.y + 'px';  // Use the stored clicked pixel
+        });
+
+        document.getElementById('submitPinForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('pinName').value;
+            const description = document.getElementById('pinDescription').value;
+            // Handle the picture file as needed
+            // Send the data to you (e.g., via email or a server-side endpoint)
+            alert('Pin submitted!');
+        });
+    </script>
+
+    <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXWSMtQocX4GVqpqb7Afxr7XD04woP510&callback=initMap">
+    </script>
+</body>
+</html>

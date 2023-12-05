@@ -8,3 +8,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
   
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: {lat: -25.363, lng: 131.044} // Set to your desired location
+  });
+
+  // Add markers and other map features here
+}

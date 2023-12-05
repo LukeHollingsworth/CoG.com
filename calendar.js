@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const specialDates = {
       "2023-12-21": "Winter Solstice",
+      "2023-12-23": "Yule Celebration",
       "2024-03-21": "Spring Equinox",
       "2024-06-21": "Summer Solstice",
       "2024-09-21": "Autumn Equinox",
