@@ -33,6 +33,7 @@
     <script>
         let map;
         let clickedLatLng;
+        let clickedPixel;
 
         function initMap() {
             var grayscaleStyle = [
@@ -60,8 +61,17 @@
 
             map.addListener('rightclick', function(e) {
                 clickedLatLng = e.latLng;
-                clickedPixel = e.pixel; // Store the clicked pixel
+                clickedPixel = e.pixel;
                 showContextMenu(clickedPixel);
+            });
+
+            // Global click listener to close the form if clicked outside
+            document.addEventListener('click', function(event) {
+                const form = document.getElementById('pinForm');
+                const contextMenu = document.getElementById('contextMenu');
+                if (form.style.display === 'block' && !form.contains(event.target) && !contextMenu.contains(event.target)) {
+                    form.style.display = 'none';
+                }
             });
         }
 
@@ -72,12 +82,13 @@
             contextMenu.style.top = pixel.y + 'px';
         }
 
-        document.getElementById('addPin').addEventListener('click', function() {
+        document.getElementById('addPin').addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the global click listener from hiding the form
             document.getElementById('contextMenu').style.display = 'none';
             const form = document.getElementById('pinForm');
             form.style.display = 'block';
-            form.style.left = clickedPixel.x + 'px'; // Use the stored clicked pixel
-            form.style.top = clickedPixel.y + 'px';  // Use the stored clicked pixel
+            form.style.left = clickedPixel.x + 'px';
+            form.style.top = clickedPixel.y + 'px';
         });
 
         document.getElementById('submitPinForm').addEventListener('submit', function(event) {
@@ -87,10 +98,11 @@
             // Handle the picture file as needed
             // Send the data to you (e.g., via email or a server-side endpoint)
             alert('Pin submitted!');
+            document.getElementById('pinForm').style.display = 'none';
         });
+
     </script>
 
-    <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXWSMtQocX4GVqpqb7Afxr7XD04woP510&callback=initMap">
     </script>
