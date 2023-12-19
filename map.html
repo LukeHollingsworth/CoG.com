@@ -4,7 +4,6 @@
     <title>Interactive Map</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Set the size of the map */
         #map {
             height: 550px;
             width: 100%;
@@ -14,95 +13,26 @@
 <body>
     <h1>Interactive Map</h1>
     <div id="map"></div>
+
     <div id="contextMenu" style="display: none; position: absolute; z-index: 5;">
         <ul>
             <li id="addPin">Submit New Pin</li>
         </ul>
     </div>
-    
+
     <div id="pinForm" style="display: none; position: absolute; z-index: 5;">
-        <form id="submitPinForm">
-            Name: <input type="text" id="pinName"><br>
-            Description: <input type="text" id="pinDescription"><br>
-            Picture: <input type="file" id="pinPicture"><br>
+        <form id="submitPinForm" action="https://formspree.io/f/mpzvarwd" method="POST" enctype="multipart/form-data">
+            <input type="hidden" id="pinLat" name="pinLat">
+            <input type="hidden" id="pinLng" name="pinLng">
+            
+            Author: <input type="text" id="pinAuthor" name="pinAuthor" required><br>
+            Description: <input type="text" id="pinDescription" name="pinDescription" required><br>
+            Photo: <input type="file" id="pinPhoto" name="pinPhoto"><br>
             <input type="submit" value="Submit Pin">
         </form>
     </div>
-    
 
-    <script>
-        let map;
-        let clickedLatLng;
-        let clickedPixel;
-
-        function initMap() {
-            var grayscaleStyle = [
-                {
-                    "featureType": "all",
-                    "stylers": [
-                        { "saturation": -100 },
-                        { "lightness": 50 }
-                    ]
-                },
-                {
-                    "featureType": "road",
-                    "elementType": "geometry",
-                    "stylers": [
-                        { "lightness": 100 },
-                        { "visibility": "simplified" }
-                    ]
-                }
-            ];
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 8,
-                center: {lat: 51.54553931607378, lng: -0.19432621840440362},
-                styles: grayscaleStyle
-            });
-
-            map.addListener('rightclick', function(e) {
-                clickedLatLng = e.latLng;
-                clickedPixel = e.pixel;
-                showContextMenu(clickedPixel);
-            });
-
-            // Global click listener to close the form if clicked outside
-            document.addEventListener('click', function(event) {
-                const form = document.getElementById('pinForm');
-                const contextMenu = document.getElementById('contextMenu');
-                if (form.style.display === 'block' && !form.contains(event.target) && !contextMenu.contains(event.target)) {
-                    form.style.display = 'none';
-                }
-            });
-        }
-
-        function showContextMenu(pixel) {
-            const contextMenu = document.getElementById('contextMenu');
-            contextMenu.style.display = 'block';
-            contextMenu.style.left = pixel.x + 'px';
-            contextMenu.style.top = pixel.y + 'px';
-        }
-
-        document.getElementById('addPin').addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevent the global click listener from hiding the form
-            document.getElementById('contextMenu').style.display = 'none';
-            const form = document.getElementById('pinForm');
-            form.style.display = 'block';
-            form.style.left = clickedPixel.x + 'px';
-            form.style.top = clickedPixel.y + 'px';
-        });
-
-        document.getElementById('submitPinForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const name = document.getElementById('pinName').value;
-            const description = document.getElementById('pinDescription').value;
-            // Handle the picture file as needed
-            // Send the data to you (e.g., via email or a server-side endpoint)
-            alert('Pin submitted!');
-            document.getElementById('pinForm').style.display = 'none';
-        });
-
-    </script>
-
+    <script src="map.js"></script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXWSMtQocX4GVqpqb7Afxr7XD04woP510&callback=initMap">
     </script>

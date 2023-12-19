@@ -17,7 +17,7 @@
   .video-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px; /* spacing between videos */
+    gap: 16px;
   }
   
   video {

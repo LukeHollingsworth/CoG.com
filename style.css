@@ -21,7 +21,6 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
   }
 
   .bigText {
@@ -36,6 +35,11 @@ body, html {
     cursor: pointer;
   }
 
+  p {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2em;
+    color:black
+  }
 
 #loreContent {
 color: white;
