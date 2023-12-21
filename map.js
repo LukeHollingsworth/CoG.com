@@ -1,14 +1,15 @@
 let map;
 let clickedLatLng;
+const LONG_PRESS_DURATION = 800; // in milliseconds
+let longPressTimer = null;
 
 const pinsData = [
     {
         lat: 51.54537981922461,
         lng: -0.19436882648666753,
-        author: "GuruGamer",
+        vandaliser: "GuruGamer",
         description: "True Sect HQ",
         dateAdded: "19-12-2023",
-        image: "media/content/pictures/G_logo.jpg"
     },
     // Add more pins here
 ];
@@ -42,8 +43,25 @@ function initMap() {
         showPinForm(e.pixel);
     });
 
+    map.addListener('touchstart', function(e) {
+        longPressTimer = setTimeout(function() {
+            // Assuming the first touch point is the desired point
+            const touchPoint = e.touches[0];
+            clickedLatLng = map.getProjection().fromPointToLatLng(new google.maps.Point(touchPoint.clientX, touchPoint.clientY));
+            showPinForm({ x: touchPoint.clientX, y: touchPoint.clientY });
+        }, LONG_PRESS_DURATION);
+    });
+    
+    // Handling touchend to cancel the long press timer if touch duration is less than the threshold
+    map.addListener('touchend', function() {
+        if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+        }
+    });
+
     pinsData.forEach(pin => {
-        addPinToMap(pin.lat, pin.lng, pin.author, pin.description, pin.dateAdded, pin.image);
+        addPinToMap(pin.lat, pin.lng, pin.vandaliser, pin.description, pin.dateAdded);
     });
 }
 
@@ -61,7 +79,7 @@ document.getElementById('addPin').addEventListener('click', function() {
     showPinForm({ x: event.clientX, y: event.clientY });
 });
 
-function addPinToMap(lat, lng, author, description, dateAdded, image) {
+function addPinToMap(lat, lng, vandaliser, description, dateAdded) {
     const marker = new google.maps.Marker({
         position: { lat: lat, lng: lng },
         map: map,
@@ -72,8 +90,7 @@ function addPinToMap(lat, lng, author, description, dateAdded, image) {
     });
 
     const infoWindowContent = `<div>
-                                <img src="${image}" alt="Pin Image" style="width: 100px; height: auto;">
-                                <p><b>Creator:</b> ${author}<br>
+                                <p><b>Vandaliser:</b> ${vandaliser}<br>
                                 <b>Description:</b> ${description}<br>
                                 <small><b>Date Added:</b> ${dateAdded}</small></p>
                               </div>`;
@@ -90,3 +107,23 @@ function addPinToMap(lat, lng, author, description, dateAdded, image) {
         infoWindow.close();
     });
 }
+
+function getMapOffset(element) {
+    let x = 0;
+    let y = 0;
+    while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
+        x += element.offsetLeft - element.scrollLeft;
+        y += element.offsetTop - element.scrollTop;
+        element = element.offsetParent;
+    }
+    return { top: y, left: x };
+}
+
+document.addEventListener('click', function(event) {
+    var isClickInsideForm = document.getElementById('pinForm').contains(event.target);
+    var isContextMenu = document.getElementById('contextMenu').contains(event.target);
+
+    if (!isClickInsideForm && !isContextMenu) {
+        document.getElementById('pinForm').style.display = 'none';
+    }
+});
