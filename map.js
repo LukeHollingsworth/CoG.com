@@ -1,6 +1,6 @@
 let map;
 let clickedLatLng;
-const LONG_PRESS_DURATION = 800; // in milliseconds
+const LONG_PRESS_DURATION = 800;
 let longPressTimer = null;
 
 const pinsData = [
@@ -11,7 +11,6 @@ const pinsData = [
         description: "True Sect HQ",
         dateAdded: "19-12-2023",
     },
-    // Add more pins here
 ];
 
 function initMap() {
@@ -32,6 +31,7 @@ function initMap() {
             ]
         }
     ];
+
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 10,
         center: {lat: 51.5074, lng: -0.1278},
@@ -52,7 +52,6 @@ function initMap() {
         }, LONG_PRESS_DURATION);
     });
     
-    // Handling touchend to cancel the long press timer if touch duration is less than the threshold
     map.addListener('touchend', function() {
         if (longPressTimer) {
             clearTimeout(longPressTimer);
