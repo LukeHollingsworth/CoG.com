@@ -11,6 +11,11 @@
     </style>
 </head>
 <body>
+    <div class="nav-container">
+        <a href="index.html">
+            <img src="media/content/pictures/G_logo.jpg" alt="Logo" style="width:50px;height:50px;">
+        </a>
+    </div>
     <h1>Virtual Vandalism</h1>
     <div id="map"></div>
 
@@ -24,7 +29,7 @@
         <form id="submitPinForm" action="https://formspree.io/f/mpzvarwd" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="pinLat" name="pinLat">
             <input type="hidden" id="pinLng" name="pinLng">
-            
+        
             Vandaliser: <input type="text" id="pinAuthor" name="pinAuthor" required><br>
             Description: <input type="text" id="pinDescription" name="pinDescription" required><br>
             <input type="submit" value="Submit Pin">

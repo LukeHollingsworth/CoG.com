@@ -21,6 +21,14 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 20px; /* Add some spacing */
+  }
+
+  .largeImage {
+      max-width: 100%;
+      max-height: 600px;
+      height: auto;
+      padding: 10px;
   }
 
   .bigText {
@@ -38,7 +46,13 @@ body, html {
   p {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.2em;
-    color:black
+    color:white
+  }
+
+  form {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2em;
+    color:white
   }
 
 #loreContent {
