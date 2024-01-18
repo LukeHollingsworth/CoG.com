@@ -11,6 +11,13 @@ const pinsData = [
         description: "True Sect HQ",
         dateAdded: "19-12-2023",
     },
+    {
+        lat: 51.488963019495195,
+        lng: -0.1337243044834624,
+        vandaliser: "GuruGamer",
+        description: "Pimlico Station",
+        dateAdded: "16-01-2024",
+    }
 ];
 
 function initMap() {
