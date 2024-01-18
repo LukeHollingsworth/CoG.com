@@ -95,7 +95,7 @@ function addPinToMap(lat, lng, vandaliser, description, dateAdded) {
         }
     });
 
-    const infoWindowContent = `<div>
+    const infoWindowContent = `<div class='infoWindow'>
                                 <p><b>Vandaliser:</b> ${vandaliser}<br>
                                 <b>Description:</b> ${description}<br>
                                 <small><b>Date Added:</b> ${dateAdded}</small></p>
