@@ -17,7 +17,21 @@ const pinsData = [
         vandaliser: "GuruGamer",
         description: "Pimlico Station",
         dateAdded: "16-01-2024",
-    }
+    },
+    {
+        lat: 48.88126110402522,
+        lng: 2.356741209081279,
+        vandaliser: "GuruGamer",
+        description: "Paris Gare du Nord",
+        dateAdded: "01-02-2024",
+    },
+    {
+        lat: 48.833378450421776,
+        lng: 2.317136214309663,
+        vandaliser: "GuruGamer",
+        description: "Chloe's flat",
+        dateAdded: "01-02-2024",
+    },
 ];
 
 function initMap() {
